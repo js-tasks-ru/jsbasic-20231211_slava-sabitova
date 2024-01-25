@@ -1,4 +1,5 @@
 import createElement from '../../assets/lib/create-element.js';
+
 import ProductCard from '../../6-module/2-task/index.js';
 
 export default class ProductGrid {
@@ -10,7 +11,7 @@ export default class ProductGrid {
   }
 
   render() {
-    this elem = createElement(`
+    this.elem = createElement(`
       <div class="products-grid">
         <div class="products-grid__inner">
 
@@ -20,19 +21,19 @@ export default class ProductGrid {
       </div>
     `);
 
-    this.createCards(this.products);
-  };
+    this.renderCards(this.products);
+  }
 
-  createCards(products) {
-    this.productsGridInner = this.elem.querySelector('.products-grid__inner');
+  renderCards(products) {
+    const productsGridInner = this.elem.querySelector('.products-grid__inner');
+    productsGridInner.innerHTML = '';
 
     for (let product of products) {
-      this.productsGridInner.append(new ProductCard(product).elem);
+      productsGridInner.append(new ProductCard(product).elem);
     }
   }
 
   updateFilter(filters) {
-
     Object.assign(this.filters, filters);
 
     let products = this.products.filter(product => {
@@ -52,7 +53,6 @@ export default class ProductGrid {
       return true;
     });
 
-    this.createCards(products);
-
+    this.renderCards(products);
   }
 }
